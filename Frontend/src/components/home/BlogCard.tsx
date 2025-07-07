@@ -1,9 +1,10 @@
 'use client';
 
-import { Blog } from '@/services/types/blog.types';
+import { Blog } from '@/features/blogs/blogs.types';
 import React, { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Bookmark, Heart, MessageCircle } from 'lucide-react';
+import Link from 'next/link';
 
 const BlogCard: React.FC<{ blog: Blog }> = ({ blog }) => {
     const [isLiked, setIsLiked] = useState(false);
@@ -27,10 +28,10 @@ const BlogCard: React.FC<{ blog: Blog }> = ({ blog }) => {
                     </Avatar>
                     <p>{blog.authorName || 'Vishal Jagamani'}</p>
                 </div>
-                <div className="flex flex-col space-y-2">
+                <Link className="flex flex-col space-y-2 hover:cursor-pointer" href={`/vishaljagamani/${blog.id}`}>
                     <p className="text-2xl">{blog.title}</p>
                     <p className="text-wrap">{blog.content}</p>
-                </div>
+                </Link>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-6">
                         <div className="flex items-center space-x-2 select-none">

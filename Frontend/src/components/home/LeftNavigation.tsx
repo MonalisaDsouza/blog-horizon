@@ -16,9 +16,7 @@ const LeftNavigation: React.FC<LeftNavigationProps> = ({ closeSheet }) => {
     return (
         <>
             <div className="flex w-full flex-col space-y-4 px-4">
-                {/* <div> */}
                 {isMobile && <SearchInput />}
-                {/* </div> */}
                 <div className="flex flex-col space-y-2">
                     {leftNavigationOptions?.map((item) => {
                         const Icon = item.icon;

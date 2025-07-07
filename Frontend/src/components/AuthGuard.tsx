@@ -1,6 +1,6 @@
 'use client';
 
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/features/auth/auth.store';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
@@ -15,6 +15,7 @@ export const AuthGuard: React.FC = () => {
         if (user === null) return;
         if (!user.isSignupComplete && pathName !== '/signup') {
             console.log('user is not signup complete');
+            console.log('userDetails', useUserStore.getState().userDetails);
             // router.push('/signup');
         }
     }, [isUserInitialized, user, pathName, router]);

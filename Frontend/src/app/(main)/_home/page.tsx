@@ -4,8 +4,8 @@ import React, { useEffect } from 'react';
 
 import BlogCard from '@/components/home/BlogCard';
 import LeftNavigation from '@/components/home/LeftNavigation';
-import { fetchAccessToken } from '@/services/fetchAccesToken';
-import { useBlogs } from '@/services/hooks/useBlogs';
+import { fetchAccessToken } from '@/features/auth/hooks/fetchAccessToken';
+import { useBlogs } from '@/features/blogs/hooks/useBlogs';
 import useScreenSize from '@/utils/hof/useScreenSize';
 
 const Page: React.FC = () => {
@@ -33,9 +33,9 @@ const Page: React.FC = () => {
                                 <p className="text-red-500">Error: {error.message}</p>
                             ) : (
                                 <div className="flex flex-col space-y-4">
-                                    {data?.data?.map((item) => <BlogCard key={item.id} blog={item} />)}
-                                    {data?.data?.map((item) => <BlogCard key={`copy1-${item.id}`} blog={item} />)}
-                                    {data?.data?.map((item) => <BlogCard key={`copy2-${item.id}`} blog={item} />)}
+                                    {data?.data?.map((item) => (
+                                        <BlogCard key={item.id} blog={item} />
+                                    ))}
                                 </div>
                             )}
                         </div>

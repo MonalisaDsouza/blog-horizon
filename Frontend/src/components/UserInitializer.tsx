@@ -1,7 +1,7 @@
 'use client';
 
-import { useUserById } from '@/services/hooks/useUser';
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/features/auth/auth.store';
+import { useUserById } from '@/features/auth/hooks/useUser';
 import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import React, { useEffect } from 'react';
 
@@ -36,6 +36,7 @@ const UserInitializer: React.FC = () => {
         });
         setIsUserInitialized(true);
     }, [auth0User, isSuccess, userById, setUserDetails, setIsUserInitialized]);
+
     return null;
 };
 

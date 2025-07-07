@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React, { lazy, Suspense } from 'react';
 
-const MarkdownEditor = lazy(() => import('@/components/blogs/MarkdownEditor'));
+const MarkdownEditor = lazy(() => import('@/features/blogs/components/editor/MarkdownEditor'));
 
 const Page: React.FC = () => {
     return (

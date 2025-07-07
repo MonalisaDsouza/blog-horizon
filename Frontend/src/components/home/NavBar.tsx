@@ -2,21 +2,23 @@
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { profileMenuOptions } from '@/config/config';
-import { useUserStore } from '@/store/user';
 import useScreenSize from '@/utils/hof/useScreenSize';
 import { PopoverTrigger } from '@radix-ui/react-popover';
-import { Menu } from 'lucide-react';
+import { Bell, Menu, Search } from 'lucide-react';
 import Link from 'next/link';
-import React, { useRef, useState } from 'react';
-import { GoBell } from 'react-icons/go';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Popover, PopoverContent } from '../ui/popover';
 import { Separator } from '../ui/separator';
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
 import LeftNavigation from './LeftNavigation';
+import { useUserStore } from '@/features/auth/auth.store';
 
 const NavBar: React.FC = () => {
+    const [hasMounted, setHasMounted] = useState(false);
+    useEffect(() => setHasMounted(true), []);
+
     const [open, setOpen] = useState<boolean>(false);
     const closeRef = useRef<HTMLButtonElement>(null);
     const { isMobile } = useScreenSize();
@@ -28,18 +30,21 @@ const NavBar: React.FC = () => {
         }
     };
 
+    if (!hasMounted) return null;
+
     return (
         <>
-            <div className="bg-background fixed z-10 flex h-auto w-screen flex-col-reverse flex-wrap items-center justify-between border-b-[1px] border-gray-300 px-4 py-3 sm:h-14 sm:flex-row sm:px-20">
+            <div className="bg-background fixed z-10 flex h-auto w-screen flex-col-reverse flex-wrap items-center justify-between border-b-[1px] border-gray-300 px-4 sm:h-14 sm:flex-row sm:px-20">
                 <div className="flex w-full items-center justify-start sm:mb-0 sm:w-auto sm:space-x-4">
                     <Link href="/">
                         <p className="text-primary hidden text-xl font-bold text-nowrap hover:cursor-pointer sm:block">Blog Horizon</p>
                     </Link>
-                    <div className="flex w-full items-center justify-start sm:w-full">
+                    <div className="relative flex w-full items-center justify-start sm:w-full">
+                        <Search size={22} strokeWidth={1.5} className="absolute top-1/2 left-2 -translate-y-1/2" />
                         <Input
                             type="search"
                             placeholder="Search..."
-                            className="placeholder:text-foreground w-full focus-within:border-red-600 sm:w-2xl"
+                            className="placeholder:text-foreground w-full pl-10 focus-within:border-red-600 sm:w-2xl"
                             onKeyDown={(e) => console.log('Search...', e.key)}
                         />
                     </div>
@@ -75,7 +80,7 @@ const NavBar: React.FC = () => {
                         >
                             New Post
                         </Button>
-                        {isLoggedIn && <GoBell className="self-center text-2xl hover:cursor-pointer" size={26} />}
+                        {isLoggedIn && <Bell className="self-center text-2xl hover:cursor-pointer" size={26} />}
                         {isLoggedIn ? (
                             <Popover open={open} onOpenChange={setOpen}>
                                 <PopoverTrigger asChild>
@@ -91,7 +96,9 @@ const NavBar: React.FC = () => {
                                 <PopoverContent className="mr-3.5 flex w-52 p-2 sm:mr-20">
                                     <div className="group flex w-full flex-col">
                                         <p className="rounded-sm px-4 py-2 hover:cursor-pointer hover:bg-gray-200 dark:hover:bg-[#272729]">
-                                            <Link href="/vishal_jagamani">Vishal Jagamani</Link>
+                                            <Link href="/vishal_jagamani" onClick={() => setOpen(false)}>
+                                                Vishal Jagamani
+                                            </Link>
                                         </p>
                                         <Separator className="my-2" />
                                         {profileMenuOptions?.map((option) => {

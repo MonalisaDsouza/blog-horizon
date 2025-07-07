@@ -1,13 +1,16 @@
-'use client';
-
+import UserProfile from '@/features/user/components/userProfile/UserProfile';
 import React from 'react';
 
-const Page = ({ params }: { params: Promise<{ username: string }> }) => {
-    const { username } = React.use(params) as { username: string };
+interface PageProps {
+    params: Promise<{ username: string }>;
+}
+
+const Page: React.FC<PageProps> = async ({ params }) => {
+    const { username } = await params;
 
     return (
         <>
-            <div>User profile page {username}</div>
+            <UserProfile username={username} />
         </>
     );
 };

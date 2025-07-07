@@ -1,4 +1,4 @@
-import Settings from '@/components/settings/Settings';
+import Settings from '@/features/user/components/settings/settings';
 import React from 'react';
 
 interface PageProps {

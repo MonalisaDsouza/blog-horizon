@@ -1,9 +1,9 @@
 'use client';
 
-import SignUpInput from '@/components/auth/SignUpInput';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { SignupSchema, SignupType } from '@/schemas/auth';
+import SignUpInput from '@/features/auth/components/SignUpInput';
+import { SignupSchema, SignupType } from '@/features/auth/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Calendar, Globe, MapPin, User } from 'lucide-react';
 import React from 'react';
