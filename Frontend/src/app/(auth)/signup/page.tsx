@@ -14,19 +14,19 @@ const Page: React.FC = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: zodResolver(SignupSchema), mode: 'onChange' });
+    } = useForm({ resolver: zodResolver(SignupSchema), mode: 'onChange', defaultValues: { bio: '', website: '', location: '' } });
 
     const handleSignup = (data: SignupType) => {
-        console.log('signup data', data);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const cleaned = Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
+        console.log('signup data', cleaned);
     };
-
-    console.log('error', errors.username?.message);
 
     return (
         <>
             <div className="flex h-full w-full justify-center md:items-center">
-                <div className="mt-10 flex h-fit w-full flex-col rounded-lg px-4 md:mt-0 md:w-[60%]">
-                    <h1 className="text-primary text-2xl font-semibold tracking-wide">Complete your signup</h1>
+                <div className="bg-background mt-10 flex h-fit w-full flex-col rounded-lg px-4 py-6 md:mt-0 md:w-[60%]">
+                    <h1 className="text-primary self-center text-2xl font-semibold tracking-wide">Complete your signup</h1>
                     <form onSubmit={handleSubmit(handleSignup)} className="mt-8 flex flex-col space-y-5">
                         <SignUpInput
                             icon={User}

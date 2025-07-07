@@ -3,7 +3,6 @@ import { useAuthStore } from '../auth.store';
 export const fetchAccessToken = async () => {
     try {
         const res = await fetch('/auth/access-token');
-        console.log('Access token call');
         if (!res.ok) {
             console.log('User not authenticated or token fetch failed');
         }

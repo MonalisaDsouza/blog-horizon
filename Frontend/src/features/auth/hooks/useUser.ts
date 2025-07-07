@@ -1,9 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUserById } from '../api/user.api';
-import { useAuthStore } from '../auth.store';
+import { checkUsernameAvailability, getUserById } from '../api/user.api';
 
 export const useUserById = (id: string) => {
-    const accessToken = useAuthStore.getState().accessToken;
-    console.log('accessToken', useAuthStore.getState().accessToken);
-    return useQuery({ queryKey: ['userById', id], queryFn: () => getUserById(id), enabled: !!id && !!accessToken, staleTime: 1000 * 60 * 5 });
+    return useQuery({ queryKey: ['userById', id], queryFn: () => getUserById(id), enabled: !!id, staleTime: 1000 * 60 * 5 });
+};
+
+export const useCheckUsernameAvailability = (username: string) => {
+    return useQuery({
+        queryKey: ['checkUsernameAvailability', username],
+        queryFn: () => checkUsernameAvailability(username),
+        enabled: !!username,
+        staleTime: 1000 * 60 * 5,
+    });
 };

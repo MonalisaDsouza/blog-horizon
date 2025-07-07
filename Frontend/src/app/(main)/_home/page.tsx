@@ -33,7 +33,7 @@ const Page: React.FC = () => {
                                 <p className="text-red-500">Error: {error.message}</p>
                             ) : (
                                 <div className="flex flex-col space-y-4">
-                                    {data?.data?.map((item) => (
+                                    {data?.data?.content?.map((item) => (
                                         <BlogCard key={item.id} blog={item} />
                                     ))}
                                 </div>

@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+const optionalField = (schema: z.ZodTypeAny) =>
+    z.preprocess((val) => (typeof val === 'string' && val.trim() === '' ? undefined : val), schema.optional());
+
 export const SignupSchema = z.object({
     username: z
         .string()
@@ -17,9 +20,9 @@ export const SignupSchema = z.object({
             invalid_type_error: 'Expected a date',
         }),
     ),
-    bio: z.optional(z.string().min(2, { message: 'Bio must be at least 3 characters' }).max(200, { message: 'Bio cannot exceed 200 characters' })),
-    website: z.optional(z.string().url({ message: 'Invalid URL' })),
-    location: z.optional(z.string().min(2, { message: 'Location must be at least 2 characters' })),
+    bio: optionalField(z.string().min(2, { message: 'Bio must be at least 2 characters' }).max(200, { message: 'Bio cannot exceed 200 characters' })),
+    website: optionalField(z.string().url({ message: 'Invalid URL' })),
+    location: optionalField(z.string().min(2, { message: 'Location must be at least 2 characters' })),
 });
 
 export type SignupType = z.infer<typeof SignupSchema>;

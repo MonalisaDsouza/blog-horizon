@@ -20,5 +20,10 @@ export interface CreateBlogPayload {
 export interface getBlogsResponse {
     status: boolean;
     message: string;
-    data: Blog[];
+    data: {
+        content: Blog[];
+        totalCount: number;
+        limit: number;
+        page: number;
+    };
 }
