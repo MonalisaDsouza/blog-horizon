@@ -13,9 +13,10 @@ public class BlogDto {
     private String title;
     private String content;
     private String auth0UserId;
-    private String name;
     private List<String> tags;
     private int likesCount;
     private int commentsCount;
+    private String authorUsername;
+    private String authorName;
 
 }

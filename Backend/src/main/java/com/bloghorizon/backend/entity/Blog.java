@@ -22,5 +22,8 @@ public class Blog {
     private long createdAt;
     private long updatedAt;
     private int commentsCount;
+    private String authorUsername;
+    private String authorName;
 }
+
 

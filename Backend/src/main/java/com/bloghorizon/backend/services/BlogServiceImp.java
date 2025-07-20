@@ -65,10 +65,12 @@ public class BlogServiceImp implements BlogService {
                         blog.getTitle(),
                         blog.getContent(),
                         blog.getAuth0UserId(),
-                        auth0UserIdToName.getOrDefault(blog.getAuth0UserId(), "Unknown"),
+//                        auth0UserIdToName.getOrDefault(blog.getAuth0UserId(), "Unknown"),
                         blog.getTags(),
                         blog.getLikesCount(),
-                        blog.getCommentsCount()
+                        blog.getCommentsCount(),
+                        blog.getAuthorName(),
+                        blog.getAuthorUsername()
                 ))
                 .toList();
 
@@ -80,9 +82,9 @@ public class BlogServiceImp implements BlogService {
         Pageable pageable = PageRequest.of(page, limit);
         Page<Blog> blogPage = blogRepository.findByAuth0UserId(auth0UserId, pageable);
 
-        String authorName = userRepository.findByAuth0UserId(auth0UserId)
-                .map(User::getUsername)
-                .orElse("Unknown");
+//        String authorName = userRepository.findByAuth0UserId(auth0UserId)
+//                .map(User::getUsername)
+//                .orElse("Unknown");
 
         List<BlogDto> dtoList = blogPage.getContent().stream()
                 .map(blog -> new BlogDto(
@@ -90,10 +92,11 @@ public class BlogServiceImp implements BlogService {
                         blog.getTitle(),
                         blog.getContent(),
                         blog.getAuth0UserId(),
-                        authorName,
                         blog.getTags(),
                         blog.getLikesCount(),
-                        blog.getCommentsCount()
+                        blog.getCommentsCount(),
+                        blog.getAuthorName(),
+                        blog.getAuthorUsername()
                 ))
                 .toList();
 
@@ -115,6 +118,8 @@ public class BlogServiceImp implements BlogService {
         existingBlog.setLikesCount(updatedBlog.getLikesCount());
         existingBlog.setCommentsCount(updatedBlog.getCommentsCount());
         existingBlog.setUpdatedAt(System.currentTimeMillis());
+        existingBlog.setAuthorName(updatedBlog.getAuthorName());
+        existingBlog.setAuthorUsername(updatedBlog.getAuthorUsername());
         return blogRepository.save(existingBlog);
     }
 
