@@ -1,4 +1,4 @@
-package com.bloghorizon.backend.response;
+package com.bloghorizon.backend.responses;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

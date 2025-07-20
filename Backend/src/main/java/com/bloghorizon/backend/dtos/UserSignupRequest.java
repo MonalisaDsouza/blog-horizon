@@ -1,7 +1,5 @@
-package com.bloghorizon.backend.dto;
+package com.bloghorizon.backend.dtos;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data

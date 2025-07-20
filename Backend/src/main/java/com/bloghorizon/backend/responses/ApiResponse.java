@@ -1,4 +1,4 @@
-package com.bloghorizon.backend.response;
+package com.bloghorizon.backend.responses;
 
 import lombok.Getter;
 import lombok.Setter;

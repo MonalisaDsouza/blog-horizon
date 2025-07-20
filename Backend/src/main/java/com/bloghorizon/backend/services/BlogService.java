@@ -1,7 +1,7 @@
 package com.bloghorizon.backend.services;
 
-import com.bloghorizon.backend.entity.Blog;
-import com.bloghorizon.backend.dto.BlogDto;
+import com.bloghorizon.backend.entities.Blog;
+import com.bloghorizon.backend.dtos.BlogDto;
 import org.springframework.data.domain.Page;
 
 public interface BlogService {

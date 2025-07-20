@@ -1,26 +1,32 @@
-package com.bloghorizon.backend.services;
+package com.bloghorizon.backend.services.impl;
 
-import com.bloghorizon.backend.dto.CompleteSignupRequest;
-import com.bloghorizon.backend.dto.SignupResponse;
-import com.bloghorizon.backend.dto.UserResponse;
-import com.bloghorizon.backend.dto.UserSignupRequest;
-import com.bloghorizon.backend.entity.User;
+import com.bloghorizon.backend.dtos.CompleteSignupRequest;
+import com.bloghorizon.backend.dtos.SignupResponse;
+import com.bloghorizon.backend.dtos.UserResponse;
+import com.bloghorizon.backend.dtos.UserSignupRequest;
+import com.bloghorizon.backend.entities.User;
 import com.bloghorizon.backend.repositories.UserRepository;
-import com.bloghorizon.backend.response.ApiResponse;
-import com.bloghorizon.backend.response.ResponseBuilder;
+import com.bloghorizon.backend.responses.ApiResponse;
+import com.bloghorizon.backend.responses.ResponseBuilder;
+import com.bloghorizon.backend.services.UserService;
+import com.bloghorizon.backend.services.auth0.Auth0ManagementService;
 import com.bloghorizon.backend.utils.SequenceGeneratorService;
+import com.bloghorizon.backend.utils.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImp implements UserService{
+public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     private final SequenceGeneratorService sequenceGenerator;
+    private final Auth0ManagementService auth0Service;
 
 
     @Override
@@ -75,6 +81,23 @@ public class UserServiceImp implements UserService{
         user.setCompletedSignup(true);
 
         userRepository.save(user);
-        return ResponseBuilder.success(new UserResponse(user), "Signup completed successfully");
+
+        // Update Auth0 metadata
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("bio", request.getBio());
+        metadata.put("website", request.getWebsite());
+        metadata.put("location", request.getLocation());
+        metadata.put("birthday", request.getBirthday());
+        metadata.put("username", request.getUsername());
+        metadata.put("name",request.getName());
+
+        try {
+            auth0Service.updateUserMetadata(auth0UserId, metadata);
+        } catch (Exception ex) {
+            System.out.println("Failed to update Auth0 metadata for user " + auth0UserId + ": " + ex.getMessage());
+        }
+
+        return ResponseBuilder.success(UserMapper.toUserResponse(user), "Signup completed successfully");
+
     }
 }

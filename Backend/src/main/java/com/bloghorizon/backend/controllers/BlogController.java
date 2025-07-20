@@ -1,25 +1,16 @@
 package com.bloghorizon.backend.controllers;
 
-import com.bloghorizon.backend.dto.BlogDto;
-import com.bloghorizon.backend.dto.PaginatedResponse;
-import com.bloghorizon.backend.repositories.BlogRepository;
-import com.bloghorizon.backend.repositories.UserRepository;
-import com.bloghorizon.backend.response.ApiResponse;
-import com.bloghorizon.backend.entity.Blog;
-import com.bloghorizon.backend.response.ResponseBuilder;
+import com.bloghorizon.backend.dtos.BlogDto;
+import com.bloghorizon.backend.dtos.PaginatedResponse;
+import com.bloghorizon.backend.responses.ApiResponse;
+import com.bloghorizon.backend.entities.Blog;
+import com.bloghorizon.backend.responses.ResponseBuilder;
 import com.bloghorizon.backend.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/blogs")

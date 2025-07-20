@@ -1,6 +1,6 @@
-package com.bloghorizon.backend.dto;
+package com.bloghorizon.backend.dtos;
 
-import com.bloghorizon.backend.entity.User;
+import com.bloghorizon.backend.entities.User;
 import lombok.*;
 
 import java.time.LocalDate;

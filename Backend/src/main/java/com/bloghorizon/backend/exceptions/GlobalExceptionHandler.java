@@ -1,8 +1,8 @@
 package com.bloghorizon.backend.exceptions;
 
 
-import com.bloghorizon.backend.response.ApiResponse;
-import com.bloghorizon.backend.response.ResponseBuilder;
+import com.bloghorizon.backend.responses.ApiResponse;
+import com.bloghorizon.backend.responses.ResponseBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

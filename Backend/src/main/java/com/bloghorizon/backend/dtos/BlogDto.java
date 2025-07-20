@@ -1,4 +1,4 @@
-package com.bloghorizon.backend.dto;
+package com.bloghorizon.backend.dtos;
 
 import lombok.*;
 

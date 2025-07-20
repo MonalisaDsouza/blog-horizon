@@ -1,11 +1,12 @@
-package com.bloghorizon.backend.services;
+package com.bloghorizon.backend.services.impl;
 
-import com.bloghorizon.backend.entity.Blog;
-import com.bloghorizon.backend.dto.BlogDto;
-import com.bloghorizon.backend.entity.User;
+import com.bloghorizon.backend.entities.Blog;
+import com.bloghorizon.backend.dtos.BlogDto;
+import com.bloghorizon.backend.entities.User;
 import com.bloghorizon.backend.exceptions.ResourceNotFoundException;
 import com.bloghorizon.backend.repositories.BlogRepository;
 import com.bloghorizon.backend.repositories.UserRepository;
+import com.bloghorizon.backend.services.BlogService;
 import com.bloghorizon.backend.utils.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
