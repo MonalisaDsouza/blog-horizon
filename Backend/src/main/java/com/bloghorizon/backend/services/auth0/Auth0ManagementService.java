@@ -2,10 +2,10 @@ package com.bloghorizon.backend.services.auth0;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -23,14 +23,18 @@ public class Auth0ManagementService {
         this.restTemplate = restTemplate;
     }
 
-    public void updateUserMetadata(String auth0UserId, Map<String, Object> metadata) {
+    public void updateUser(String auth0UserId,String name, Map<String, Object> metadata) {
         String token = tokenService.getAccessToken();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        Map<String, Object> payload = Map.of("user_metadata", metadata);
+        Map<String, Object> payload = new HashMap<>();
+        if (name != null) payload.put("name", name);
+        if (metadata != null && !metadata.isEmpty()) {
+            payload.put("user_metadata", metadata);
+        }
 
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
 

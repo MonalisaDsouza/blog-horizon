@@ -88,11 +88,10 @@ public class UserServiceImp implements UserService {
         metadata.put("website", request.getWebsite());
         metadata.put("location", request.getLocation());
         metadata.put("birthday", request.getBirthday());
-        metadata.put("username", request.getUsername());
-        metadata.put("name",request.getName());
+        metadata.put("username",request.getUsername());
 
         try {
-            auth0Service.updateUserMetadata(auth0UserId, metadata);
+            auth0Service.updateUser(auth0UserId,request.getName(), metadata);
         } catch (Exception ex) {
             System.out.println("Failed to update Auth0 metadata for user " + auth0UserId + ": " + ex.getMessage());
         }
